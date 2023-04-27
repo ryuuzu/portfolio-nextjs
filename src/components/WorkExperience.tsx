@@ -1,18 +1,4 @@
-type WorkExperienceProps = {
-  company: {
-    name: string;
-    website: string;
-    location: string;
-  };
-  position: string;
-  duration: {
-    start: string;
-    end?: string;
-  };
-  description: string;
-  tasks?: string[];
-  skills: string[];
-};
+import { WorkExperienceProps } from "@/types/types";
 
 const WorkExperience = (workExperience: WorkExperienceProps) => {
   let startDate = new Date(workExperience.duration.start);
@@ -27,7 +13,7 @@ const WorkExperience = (workExperience: WorkExperienceProps) => {
             <div className="sm:pb-1">
               <a
                 href={workExperience.company.website}
-                className="text-primary underline decoration-dotted underline-offset-4 dark:text-white"
+                className="text-primary underline decoration-dotted underline-offset-4 "
               >
                 {workExperience.company.name},
               </a>{" "}
@@ -47,11 +33,11 @@ const WorkExperience = (workExperience: WorkExperienceProps) => {
             })}
           </div>
         </div>
-        <div className="work-experience-description mt-1 text-sm font-medium dark:text-tertiary">
+        <div className="work-experience-description mt-1 text-sm font-medium ">
           {workExperience.description}
         </div>
         {workExperience.tasks && (
-          <div className="work-experience-tasks mt-2 text-sm font-medium dark:text-tertiary">
+          <div className="work-experience-tasks mt-2 text-sm font-medium ">
             <ul className="list-inside list-disc">
               {workExperience.tasks.map((task, index) => {
                 return (
@@ -65,7 +51,7 @@ const WorkExperience = (workExperience: WorkExperienceProps) => {
             </ul>
           </div>
         )}
-        <div className="work-experience-skills mt-2 text-sm font-medium dark:text-tertiary">
+        <div className="work-experience-skills mt-2 text-sm font-medium ">
           <span className="font-bold">Skills: </span>
           {workExperience.skills.join(" ⚫ ")}
         </div>

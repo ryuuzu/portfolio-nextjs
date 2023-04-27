@@ -2,6 +2,10 @@ import Image from "next/image";
 import { DM_Sans } from "next/font/google";
 import { GitHub, Twitter, LinkedIn } from "iconoir-react";
 import WorkExperience from "@/components/WorkExperience";
+import EducationDegree from "@/components/EducationDegree";
+import getPinnedRepos from "@/utils/pinnedRepos";
+import { useEffect, useState } from "react";
+import { UserRepo } from "@/types/types";
 
 const workExperiences = [
   {
@@ -41,17 +45,54 @@ const workExperiences = [
   },
 ];
 
+const educationDegrees = [
+  {
+    name: "B.Sc. (Hons) Computing",
+    institution: "Islington College",
+    location: "Kamalpokhari, Kathmandu",
+    website: "https://islington.edu.np/",
+    description: "Currently pursuing a degree in Computing.",
+  },
+  {
+    name: "SLC",
+    institution: "Moonlight Higher Secondary School",
+    location: "Kumaripati, Lalitpur",
+    website: "https://molihss.edu.np/",
+    end: "2020",
+    description:
+      "Completed high-school degree in Science stream focused on Physics, Chemistry and Mathematics.",
+  },
+  {
+    name: "SEE",
+    institution: "Nightingale International Secondary School",
+    location: "Kupondole, Lalitpur",
+    website: "https://nightingale.edu.np/",
+    end: "2018",
+    description:
+      "Completed secondary education with distinction in English, Mathematics and Science.",
+  },
+];
+
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
 });
 
 export default function Home() {
+  const [pinnedRepos, setPinnedRepos] = useState<UserRepo[] | undefined>([]);
+
+  useEffect(() => {
+    getPinnedRepos().then((repos) => {
+      setPinnedRepos(repos);
+    });
+    console.log(pinnedRepos);
+  }, []);
+
   return (
     <main
       className={`flex min-h-screen w-full flex-col items-center sm:flex-row ${dmSans.className}`}
     >
-      <div className="w-full flex-grow bg-inherit px-5 py-3 text-primary dark:text-white sm:min-h-screen sm:w-3/4 sm:py-10 md:w-3/5">
+      <div className="w-full flex-grow bg-white px-5 py-3 text-primary  sm:min-h-screen sm:w-3/4 sm:py-10 md:w-3/5">
         <div className="title-bar flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-0">
           <div className="header-text flex flex-row items-center gap-2 sm:flex-col sm:items-start sm:gap-1">
             <div className="name text-sm font-bold xs:text-lg sm:text-xl md:text-2xl lg:text-3xl">
@@ -98,14 +139,33 @@ export default function Home() {
                   key={workExperience.company.name}
                 />
                 {index < workExperiences.length - 1 && (
-                  <div className="work-experience-separator my-2 border-b border-secondary dark:border-tertiary"></div>
+                  <div className="work-experience-separator my-5"></div>
+                )}
+              </>
+            );
+          })}
+        </div>
+        <div className="cv-separator my-4 border-b border-secondary "></div>
+        <div className="education">
+          <h4 className="pb-1 text-xl font-bold text-tertiary sm:pb-2 sm:text-2xl">
+            Education
+          </h4>
+          {educationDegrees.map((educationDegree, index) => {
+            return (
+              <>
+                <EducationDegree
+                  {...educationDegree}
+                  key={educationDegree.name}
+                />
+                {index < educationDegrees.length - 1 && (
+                  <div className="education-separator my-5"></div>
                 )}
               </>
             );
           })}
         </div>
       </div>
-      <div className="w-full bg-primary px-5 py-3  text-white dark:bg-secondary sm:min-h-screen sm:w-1/4 sm:py-10 md:w-2/5">
+      <div className="w-full bg-primary px-5 py-8 text-white sm:min-h-screen sm:w-1/4 sm:py-10 md:w-2/5">
         Hello, I am Utsav Gurmachhan. I am also called ryuuzu. <br />
         <br />
         I am a back-end developer based in Kathmandu, Nepal. With a passion of
