@@ -263,7 +263,13 @@ export default function Home() {
         >
           <PinAlt /> <div>Chandragiri, Kathmandu, Nepal</div>
         </a>
-        <MadeWithTailwind />
+        <a
+          href="https://leonard.sh/"
+          target="_blank"
+          className="text-xs decoration-dotted underline-offset-2 hover:underline"
+        >
+          Inspired by Leonard
+        </a>
       </div>
     </main>
   );
