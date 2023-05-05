@@ -33,4 +33,5 @@ export type UserRepo = {
   languageColor?: string;
   stars: number;
   forks: number;
+  languages?: string[];
 };

@@ -11,7 +11,24 @@ async function getPinnedRepos() {
         },
       }
     );
-    return data;
+    let pinnedRepos: (UserRepo | undefined)[] = data.map((repo) => {
+      if (repo.language !== undefined) {
+        axios
+          .get(
+            `https://api.github.com/repos/${repo.owner}/${repo.repo}/languages`,
+            {
+              headers: {
+                Accept: "application/json",
+              },
+            }
+          )
+          .then((response) => {
+            repo.languages = Object.keys(response.data);
+          });
+      }
+      return repo;
+    });
+    return pinnedRepos;
   } catch (error) {
     console.log(error);
   }
