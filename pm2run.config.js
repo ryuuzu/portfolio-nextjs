@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "next",
+      name: "ryuuzu-next-app-5000",
       cwd: "/root/projects/portfolio-nextjs",
       script: "npm",
       args: "start",
